@@ -5,8 +5,8 @@ var passport = require('passport');
 var bodyParser = require('body-parser');
 var morgan = require('morgan');
 
-require('./config/db');
 require('dotenv').config();
+require('./config/db');
 require('./config/passport')(passport);
 
 var app = express();
