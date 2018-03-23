@@ -1,18 +1,13 @@
 var mqtt = require('mqtt');
 
 module.exports = class Mqtt {
-    constructor() {
-        this.url = process.env.MQTT_BROKER_URL;
-        this.port = process.env.MQTT_BROKER_PORT;
-    }
-
     publish(device, data, callback) {
         if (!device || !device.serial || !device.password) {
             return callback(false);
         }
 
         var options = {
-            port: MQTT_BROKER_PORT,
+            port: process.env.MQTT_BROKER_PORT,
             username: device.serial.toString(),
             password: device.password,
             protocolId: 'MQTT',
