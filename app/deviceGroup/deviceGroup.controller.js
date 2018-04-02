@@ -11,10 +11,10 @@ exports.index = function (req, res) {
         createdBy: req.user.id,
     }, function (err, deviceGroup) {
         if (err) {
-            return res.status(500).send("There was a problem finding the device.");
+            return res.status(500).send('There was a problem finding the device.');
         }
         if (!deviceGroup) {
-            return res.status(404).send("No device found.");
+            return res.status(404).send('No device found.');
         }
         res.status(200).send(deviceGroup);
     });
@@ -30,10 +30,10 @@ exports.create = function (req, res) {
         createdBy: req.user.id
     }, function(err, device) {
         if (device) {
-            return res.status(401).send("Name is already taken.");
+            return res.status(401).send('Name is already taken.');
         }
         if (err) {
-            return res.status(500).send("There was a problem adding the information to the database.");
+            return res.status(500).send('There was a problem adding the information to the database.');
         }
 
         var newDeviceGroup = {
@@ -45,7 +45,7 @@ exports.create = function (req, res) {
         DeviceGroup.create(newDeviceGroup,
             function (err, deviceGroup) {
                 if (err) {
-                    return res.status(500).send("There was a problem adding the information to the database.");
+                    return res.status(500).send('There was a problem adding the information to the database.');
                 }
                 res.status(200).send(deviceGroup);
             });

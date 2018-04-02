@@ -7,10 +7,10 @@ var cloudMqttApi = new CloudMqttAPI();
 exports.create = function (req, res) {
     Device.findOne({serial: req.body.serial}, function(err, device) {
         if (device) {
-            return res.status(401).send("Serial is already taken.");
+            return res.status(401).send('Serial is already taken.');
         }
         if (err) {
-            return res.status(500).send("There was a problem adding the information to the database.");
+            return res.status(500).send('There was a problem adding the information to the database.');
         }
 
         var newDevice = {
@@ -23,14 +23,14 @@ exports.create = function (req, res) {
 
         var userRegisteredCallback = function(registered) {
             if (!registered) {
-                return res.status(500).send("There was a problem with registering device in cloud.");
+                return res.status(500).send('There was a problem with registering device in cloud.');
             }
 
             Device.create(newDevice,
                 function (err, device) {
                     if (err) {
                         console.log(err)
-                        return res.status(500).send("There was a problem adding the information to the database.");
+                        return res.status(500).send('There was a problem adding the information to the database.');
                     }
                     res.status(200).send(device);
                 });
@@ -48,10 +48,10 @@ exports.index = function (req, res) {
         createdBy: req.user.id
     }).populate('status', 'data').exec( function (err, device) {
         if (err) {
-            return res.status(500).send("There was a problem finding the device.");
+            return res.status(500).send('There was a problem finding the device.');
         }
         if (!device) {
-            return res.status(404).send("No device found.");
+            return res.status(404).send('No device found.');
         }
         res.status(200).send(device);
     });
@@ -67,10 +67,10 @@ exports.show = function (req, res) {
         createdBy: req.user.id
     }).populate('status', 'data').exec( function (err, device) {
         if (err) {
-            return res.status(500).send("There was a problem finding the device.");
+            return res.status(500).send('There was a problem finding the device.');
         }
         if (!device) {
-            return res.status(404).send("No device found.");
+            return res.status(404).send('No device found.');
         }
         res.status(200).send(device);
     });
@@ -86,14 +86,14 @@ exports.destroy = function (req, res) {
         createdBy: req.user.id
     }, function (err, device) {
         if (err || !device) {
-            return res.status(500).send("There was a problem deleting the device.");
+            return res.status(500).send('There was a problem deleting the device.');
         }
         var userDeletedCallback = function(deleted) {
             if (!deleted) {
-                return res.status(500).send("There was a problem deleting the device from cloud");
+                return res.status(500).send('There was a problem deleting the device from cloud');
             }
             device.remove();
-            res.status(200).send("Device "+ device.name +" was deleted.");
+            res.status(200).send('Device '+ device.name +' was deleted.');
         };
         cloudMqttApi.deleteUser(device, userDeletedCallback);
     });
@@ -110,7 +110,7 @@ exports.update = function (req, res) {
     }, req.body, { new: true }, function (err, device) {
         if (err || !device) {
             console.log(err);
-            return res.status(500).send("There was a problem updating the device.");
+            return res.status(500).send('There was a problem updating the device.');
         }
         res.status(200).send(device);
     });

@@ -12,15 +12,15 @@ var mqtt = new Mqtt();
 exports.update = function (req, res) {
     Device.findOne({_id: req.body.deviceId, createdBy: req.user.id}, function(err, device) {
         if (!device) {
-            return res.status(401).send("No device found.");
+            return res.status(401).send('No device found.');
         }
         if (err) {
-            return res.status(500).send("There was a problem adding the information to the database.");
+            return res.status(500).send('There was a problem adding the information to the database.');
         }
 
         var publishCallback = function(published) {
             if (!published) {
-                return res.status(500).send("There was a problem with sending information to device.");
+                return res.status(500).send('There was a problem with sending information to device.');
             }
 
             Status.findOneAndUpdate({_id: device.status}, {
@@ -28,7 +28,7 @@ exports.update = function (req, res) {
                 },{ new: false },
                 function (err) {
                     if (err) {
-                        return res.status(500).send("There was a problem adding the information to the database status.");
+                        return res.status(500).send('There was a problem adding the information to the database status.');
                     }
                     res.status(200).json(req.body.data);
                 });

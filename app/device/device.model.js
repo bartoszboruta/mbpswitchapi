@@ -46,7 +46,7 @@ DeviceSchema.pre('save', function(next) {
 
     var status = new Status({
         createdBy: this._id,
-        data: "0"
+        data: '0'
     });
 
     status.save(function (err, status) {

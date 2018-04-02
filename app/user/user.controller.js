@@ -9,10 +9,10 @@ var User = require('./user.model');
 exports.create = function (req, res) {
     User.findOne({email: req.body.email}, function(err, user) {
         if (user) {
-            return res.status(401).send("Email address is already taken.");
+            return res.status(401).send('Email address is already taken.');
         }
         if (err) {
-            return res.status(500).send("There was a problem adding the information to the database.");
+            return res.status(500).send('There was a problem adding the information to the database.');
         }
 
         User.create({
@@ -22,7 +22,7 @@ exports.create = function (req, res) {
             },
             function (err, user) {
                 if (err) {
-                    return res.status(500).send("There was a problem adding the information to the database.");
+                    return res.status(500).send('There was a problem adding the information to the database.');
                 }
                 res.status(200).send(user);
             });
@@ -36,10 +36,10 @@ exports.create = function (req, res) {
 exports.show = function (req, res) {
     User.findById(req.user.id, function (err, user) {
         if (err) {
-            return res.status(500).send("There was a problem finding the user.");
+            return res.status(500).send('There was a problem finding the user.');
         }
         if (!user) {
-            return res.status(404).send("No user found.");
+            return res.status(404).send('No user found.');
         }
         res.status(200).send(user);
     });
@@ -52,9 +52,9 @@ exports.show = function (req, res) {
 exports.destroy = function (req, res) {
     User.findByIdAndRemove(req.user.id, function (err, user) {
         if (err) {
-            return res.status(500).send("There was a problem deleting the user.");
+            return res.status(500).send('There was a problem deleting the user.');
         }
-        res.status(200).send("User "+ user.name +" was deleted.");
+        res.status(200).send('User '+ user.name +' was deleted.');
     });
 };
 
@@ -65,7 +65,7 @@ exports.destroy = function (req, res) {
 exports.update = function (req, res) {
     User.findByIdAndUpdate(req.user.id, req.body, {new: true}, function (err, user) {
         if (err) {
-            return res.status(500).send("There was a problem updating the user.");
+            return res.status(500).send('There was a problem updating the user.');
         }
         res.status(200).send(user);
     });

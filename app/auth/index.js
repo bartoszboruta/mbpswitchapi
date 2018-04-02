@@ -10,7 +10,7 @@ router.post('/login', function(req, res) {
         email: req.body.email
     }, function(err, user) {
         if (err) {
-            return res.status(500).send("There was a problem adding the information to the database.");
+            return res.status(500).send('There was a problem adding the information to the database.');
         }
         if (!user) {
             res.status(404).send('Authentication failed. User not found.');
