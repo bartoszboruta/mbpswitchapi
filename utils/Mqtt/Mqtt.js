@@ -25,7 +25,7 @@ module.exports = class Mqtt {
     )
 
     client.on('connect', () => {
-      client.publish(device.serial.toString(), data, () => {
+      client.publish(`device.serial${_tt}`, data, () => {
         client.end()
         callback(true)
       })

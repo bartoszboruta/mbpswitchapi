@@ -15,7 +15,7 @@ module.exports = class CloudMqttAPI {
 
     var options = {
       method: 'POST',
-      url: this.apiUrl + '/user',
+      url: this.apiUrl + 'user',
       headers: [
         {
           name: 'content-type',
@@ -35,7 +35,10 @@ module.exports = class CloudMqttAPI {
     rp(options)
       .then(() => this.createTopic(device))
       .then(() => callback(true))
-      .catch(() => callback(false))
+      .catch(err => {
+        console.log(err)
+        callback(false)
+      })
   }
 
   deleteUser(device, callback) {
@@ -45,7 +48,7 @@ module.exports = class CloudMqttAPI {
 
     var options = {
       method: 'DELETE',
-      url: this.apiUrl + '/user/' + device.serial,
+      url: this.apiUrl + 'user/' + device.serial,
       auth: {
         user: '',
         pass: this.apiKey,
